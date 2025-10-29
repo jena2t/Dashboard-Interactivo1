@@ -4,21 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Interactivo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Variables CSS */
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
             --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #34495e;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
 
+        /* Estilos generales */
         * {
             margin: 0;
             padding: 0;
@@ -27,65 +25,57 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: var(--light-color);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
 
+        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            padding: 15px 20px;
-            background-color: rgba(44, 62, 80, 0.8);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
         }
 
         .welcome {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
+            color: var(--primary-color);
         }
 
-        .search-container {
-            position: relative;
-            width: 300px;
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 30px;
+            padding: 8px 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
         }
 
-        .search-container input {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 20px;
+        .search-bar:hover {
+            box-shadow: var(--hover-shadow);
+        }
+
+        .search-bar input {
             border: none;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: var(--dark-color);
+            outline: none;
+            padding: 5px 10px;
+            width: 200px;
             font-size: 1rem;
         }
 
-        .search-container i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--dark-color);
-        }
-
-        .dashboard {
+        /* Grid de tarjetas */
+        .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
@@ -93,33 +83,29 @@
         }
 
         .card {
-            background-color: var(--card-bg);
+            background: white;
             border-radius: 10px;
             padding: 20px;
-            color: var(--dark-color);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            cursor: pointer;
+            min-height: 120px;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
+            box-shadow: var(--hover-shadow);
         }
 
         .card h3 {
             margin-bottom: 10px;
             font-size: 1.2rem;
+            color: var(--primary-color);
         }
 
         .card p {
@@ -127,123 +113,131 @@
             color: #666;
         }
 
-        .status {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-top: 10px;
-        }
-
-        .online {
-            background-color: var(--success-color);
-        }
-
-        .offline {
-            background-color: var(--accent-color);
-        }
-
-        .weather-card {
-            background: linear-gradient(to right, #36d1dc, #5b86e5);
+        /* Tarjetas especiales */
+        .temperature-card {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
             color: white;
         }
 
-        .weather-card i {
+        .temperature-card h3 {
             color: white;
         }
 
-        .room-section {
-            margin-top: 30px;
+        .temperature-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .security-card {
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .google-card {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+        }
+
+        .google-card h3 {
+            color: white;
+        }
+
+        /* Sección de habitaciones */
+        .rooms-section {
+            margin-top: 40px;
         }
 
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 20px;
+            color: var(--primary-color);
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 2px solid var(--secondary-color);
+            display: inline-block;
         }
 
-        .rooms {
+        .rooms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
         }
 
-        .room {
-            background-color: rgba(255, 255, 255, 0.9);
+        .room-card {
+            background: white;
             border-radius: 10px;
-            padding: 20px;
-            color: var(--dark-color);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            padding: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
             cursor: pointer;
             text-align: center;
         }
 
-        .room:hover {
+        .room-card:hover {
             transform: scale(1.05);
-            background-color: var(--primary-color);
-            color: white;
+            box-shadow: var(--hover-shadow);
         }
 
-        .room i {
-            font-size: 2rem;
+        .room-card h4 {
             margin-bottom: 10px;
             color: var(--primary-color);
         }
 
-        .room:hover i {
+        /* Botón de acción */
+        .action-button {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 25px;
+            background: var(--secondary-color);
             color: white;
-        }
-
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(44, 62, 80, 0.8);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
             border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
         }
 
-        .btn:hover {
-            background-color: var(--secondary-color);
+        .action-button:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                gap: 15px;
+                align-items: flex-start;
             }
-            
-            .search-container {
+
+            .search-bar {
+                margin-top: 15px;
                 width: 100%;
             }
-            
-            .dashboard {
+
+            .search-bar input {
+                width: 100%;
+            }
+
+            .cards-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .rooms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
-            .dashboard {
+            .cards-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .rooms {
+
+            .rooms-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -251,208 +245,153 @@
 <body>
     <div class="container">
         <header>
-            <div class="welcome">Welcome, Daniel</div>
-            <div class="search-container">
-                <input type="text" placeholder="Search Notable">
-                <i class="fas fa-search"></i>
+            <h1 class="welcome">Welcome, Daniel</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Notable...">
             </div>
         </header>
 
-        <div class="dashboard">
+        <div class="cards-grid">
             <div class="card">
-                <i class="fas fa-tv"></i>
                 <h3>Smart TV</h3>
-                <p>Living Room</p>
-                <div class="status online"></div>
+                <p>Control your television</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-vr-cardboard"></i>
                 <h3>Virtual</h3>
-                <p>VR System</p>
-                <div class="status online"></div>
+                <p>Virtual environments</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-video"></i>
                 <h3>Video Network</h3>
-                <p>Connected devices</p>
-                <div class="status online"></div>
+                <p>Streaming services</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-shield-alt"></i>
                 <h3>Safe</h3>
-                <p>Security System</p>
-                <div class="status online"></div>
+                <p>Security settings</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-chart-line"></i>
                 <h3>Revenue</h3>
-                <p>Monthly report</p>
-                <div class="status online"></div>
+                <p>Financial overview</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-redo"></i>
                 <h3>Rediscover</h3>
-                <p>Recommendations</p>
-                <div class="status online"></div>
+                <p>Explore new features</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-tooth"></i>
                 <h3>Oral Devices</h3>
-                <p>Health monitoring</p>
-                <div class="status offline"></div>
+                <p>Dental health tools</p>
             </div>
-            
-            <div class="card">
-                <i class="fas fa-snowflake"></i>
+            <div class="card temperature-card">
                 <h3>Air Conditioner</h3>
                 <p>16°C</p>
-                <div class="status online"></div>
             </div>
-            
-            <div class="weather-card card">
-                <i class="fas fa-cloud-sun"></i>
+            <div class="card">
                 <h3>Weather</h3>
-                <p>24°C, Sunny</p>
-                <div class="status online"></div>
+                <p>Current conditions</p>
             </div>
-            
-            <div class="card">
-                <i class="fab fa-android"></i>
+            <div class="card security-card">
                 <h3>Android Security</h3>
-                <p>All devices secure</p>
-                <div class="status online"></div>
+                <p>Device protection</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-ethernet"></i>
                 <h3>Wired</h3>
-                <p>Network connection</p>
-                <div class="status online"></div>
+                <p>Network connections</p>
             </div>
-            
-            <div class="card">
-                <i class="fab fa-google"></i>
+            <div class="card google-card">
                 <h3>Google</h3>
-                <p>Connected services</p>
-                <div class="status online"></div>
+                <p>Search and services</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-cloud"></i>
                 <h3>Cloud</h3>
-                <p>Storage & backup</p>
-                <div class="status online"></div>
+                <p>Storage and backup</p>
             </div>
-            
             <div class="card">
-                <i class="fas fa-lightbulb"></i>
                 <h3>Lights</h3>
                 <p>Smart lighting</p>
-                <div class="status online"></div>
+            </div>
+            <div class="card">
+                <h3>Yasuam Channel</h3>
+                <p>Entertainment</p>
+            </div>
+            <div class="card">
+                <h3>Girls</h3>
+                <p>Family profiles</p>
+            </div>
+            <div class="card">
+                <h3>Kidschat</h3>
+                <p>Children's messaging</p>
             </div>
         </div>
 
-        <div class="room-section">
+        <div class="rooms-section">
             <h2 class="section-title">Rooms</h2>
-            <div class="rooms">
-                <div class="room">
-                    <i class="fas fa-tv"></i>
-                    <h3>Yasuam Channel</h3>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <h4>Dining Screen</h4>
                 </div>
-                
-                <div class="room">
-                    <i class="fas fa-female"></i>
-                    <h3>Girls</h3>
+                <div class="room-card">
+                    <h4>Play Room</h4>
                 </div>
-                
-                <div class="room">
-                    <i class="fas fa-child"></i>
-                    <h3>Kidschat</h3>
-                </div>
-                
-                <div class="room">
-                    <i class="fas fa-utensils"></i>
-                    <h3>Dining Screen</h3>
-                </div>
-                
-                <div class="room">
-                    <i class="fas fa-gamepad"></i>
-                    <h3>Play Room</h3>
-                </div>
-                
-                <div class="room">
-                    <i class="fas fa-couch"></i>
-                    <h3>Using Room</h3>
+                <div class="room-card">
+                    <h4>Using Room</h4>
                 </div>
             </div>
         </div>
 
-        <div class="footer">
-            <button class="btn">Visitar sitio</button>
-        </div>
+        <button class="action-button">Visitar sitio</button>
     </div>
 
     <script>
         // Efectos interactivos para las tarjetas
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card, .room-card');
+            
+            cards.forEach(card => {
+                // Efecto al pasar el ratón
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = this.classList.contains('room-card') ? 
+                        'scale(1.05)' : 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) translateY(0)';
+                });
+                
+                // Efecto al hacer clic
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = this.classList.contains('room-card') ? 
+                            'scale(1.05)' : 'translateY(-5px)';
+                    }, 150);
+                    
+                    // Aquí podrías agregar lógica para abrir detalles de cada elemento
+                    const title = this.querySelector('h3, h4').textContent;
+                    console.log(`Clicked on: ${title}`);
+                });
             });
             
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
+            // Efecto para el botón de acción
+            const actionButton = document.querySelector('.action-button');
+            actionButton.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+                
+                // Simular redirección
+                alert('Redirigiendo al sitio web...');
             });
             
-            card.addEventListener('click', function() {
-                const title = this.querySelector('h3').textContent;
-                alert(`Has seleccionado: ${title}`);
-            });
-        });
-
-        // Efectos para las habitaciones
-        document.querySelectorAll('.room').forEach(room => {
-            room.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05)';
+            // Efecto para la barra de búsqueda
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
             });
             
-            room.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-            });
-            
-            room.addEventListener('click', function() {
-                const title = this.querySelector('h3').textContent;
-                alert(`Accediendo a: ${title}`);
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.style.boxShadow = 'var(--card-shadow)';
             });
         });
-
-        // Efecto para el botón
-        document.querySelector('.btn').addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
-        });
-        
-        document.querySelector('.btn').addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-        });
-        
-        document.querySelector('.btn').addEventListener('click', function() {
-            alert('Redirigiendo al sitio web...');
-        });
-
-        // Cambiar el color de fondo gradualmente
-        let hue = 0;
-        function changeBackground() {
-            hue = (hue + 1) % 360;
-            document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 20%), hsl(${hue + 60}, 70%, 20%), hsl(${hue + 120}, 70%, 20%))`;
-        }
-        
-        // Cambiar el color cada 5 segundos
-        setInterval(changeBackground, 5000);
     </script>
 </body>
 </html>
